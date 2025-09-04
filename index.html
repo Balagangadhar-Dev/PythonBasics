@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Python Basics Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdf4; /* bg-green-50 */
+            color: #374151; /* text-gray-700 */
+        }
+        .code-block {
+            background-color: #1e293b; /* slate-800 */
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'Menlo', 'Monaco', 'Consolas', "Courier New", monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        .nav-link.active {
+            background-color: #bbf7d0; /* bg-green-200 */
+            color: #14532d; /* text-green-900 */
+            font-weight: 600;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-72 bg-green-100 p-4 md:p-6 border-b md:border-b-0 md:border-r border-green-200">
+            <h1 class="text-2xl font-bold text-green-800 mb-6">Python Basics</h1>
+            <nav id="navigation">
+                <!-- Navigation links will be inserted here by JavaScript -->
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="main-content" class="flex-1 p-4 md:p-8 lg:p-12">
+            <!-- Content sections will be inserted here by JavaScript -->
+        </main>
+    </div>
+
+    <script>
+        const pythonConcepts = [
+            {
+                id: 'data-types',
+                title: 'Concept of Data Types',
+                explanation: "Data types classify the kind of values a variable can hold. Python has several built-in types, including Integers (`int`), Floating-point numbers (`float`), Strings (`str`), Booleans (`bool`), Lists (`list`), Tuples (`tuple`), Sets (`set`), and Dictionaries (`dict`).",
+                exampleCode: `integer_var = 10
+float_var = 3.14
+string_var = "Hello, Python!"
+boolean_var = True
+
+print(type(integer_var)) # <class 'int'>
+print(type(float_var))  # <class 'float'>`,
+                learnMoreLink: "https://docs.python.org/3/library/stdtypes.html"
+            },
+            {
+                id: 'variables-keywords',
+                title: 'Variables & Keywords',
+                explanation: "Variables are named locations in memory used to store data. Their type is inferred automatically. Identifiers are the names given to variables, functions, etc., and they cannot be a reserved keyword (like `if`, `for`, `def`).",
+                exampleCode: `# Variable assignment
+my_variable = 100
+_another_var = "Python"
+
+# This would cause an error because 'if' is a keyword
+# if = 5
+
+import keyword
+print(f"Total keywords: {len(keyword.kwlist)}")`,
+                learnMoreLink: "https://www.w3schools.com/python/python_variables.asp"
+            },
+             {
+                id: 'strings',
+                title: 'Strings',
+                explanation: "Strings are sequences of characters. They are immutable, meaning they cannot be changed after creation. They support indexing to access characters, slicing to get parts of the string, and have many useful methods like `.upper()`, `.lower()`, and `.split()`. ",
+                exampleCode: `my_string = "Hello Python"
+
+# Accessing the first character
+print(f"First character: {my_string[0]}") # Output: H
+
+# Slicing from index 6 to the end
+print(f"Slice: {my_string[6:]}") # Output: Python
+
+# Using a method to make it uppercase
+print(f"Uppercase: {my_string.upper()}") # Output: HELLO PYTHON`,
+                learnMoreLink: "https://realpython.com/python-strings/"
+            },
+            {
+                id: 'operators',
+                title: 'Operators',
+                explanation: "Operators are special symbols that perform operations on values and variables. This includes Arithmetic (`+`, `*`), Comparison (`==`, `>`), Logical (`and`, `or`), Assignment (`=`, `+=`), Membership (`in`), and Identity (`is`) operators.",
+                exampleCode: `a = 10
+b = 3
+
+# Arithmetic
+print(f"a + b = {a + b}") # 13
+
+# Comparison
+print(f"a > b: {a > b}") # True
+
+# Logical
+can_drive = (a > 5) and (b > 0)
+print(f"Can drive: {can_drive}") # True`,
+                learnMoreLink: "https://www.w3schools.com/python/python_operators.asp"
+            },
+            {
+                id: 'control-statements',
+                title: 'Control Statements (if/else)',
+                explanation: "Control statements like `if`, `elif`, and `else` allow your program to execute different blocks of code based on conditions. Python uses indentation (whitespace) to define these blocks, not curly braces.",
+                exampleCode: `grade = 85
+
+if grade >= 90:
+    print("Grade: A")
+elif grade >= 80:
+    print("Grade: B")
+else:
+    print("Grade: F")
+# Output: Grade: B`,
+                learnMoreLink: "https://docs.python.org/3/tutorial/controlflow.html#if-statements"
+            },
+            {
+                id: 'iteration',
+                title: 'Iteration (for/while loops)',
+                explanation: "Loops allow you to execute a block of code repeatedly. The `for` loop iterates over a sequence (like a list or string), while the `while` loop continues as long as a certain condition is true.",
+                exampleCode: `# 'for' loop iterating over a range
+for i in range(3):
+    print(f"Number: {i}")
+
+# 'while' loop
+count = 0
+while count < 3:
+    print(f"Count is: {count}")
+    count += 1 # Increment to avoid an infinite loop`,
+                learnMoreLink: "https://wiki.python.org/moin/ForLoop"
+            },
+            {
+                id: 'functions',
+                title: 'Functions',
+                explanation: "Functions are reusable blocks of code defined with the `def` keyword. They help organize code, improve readability, and avoid repetition. Functions can take arguments (inputs) and `return` a value (output).",
+                exampleCode: `# A simple function definition
+def add_numbers(a, b):
+    return a + b
+
+# Calling the function and storing the result
+sum_result = add_numbers(10, 20)
+print(f"The sum is: {sum_result}") # Output: The sum is: 30`,
+                learnMoreLink: "https://www.w3schools.com/python/python_functions.asp"
+            },
+            {
+                id: 'lists',
+                title: 'Data Structures: Lists',
+                explanation: "A list is an ordered and mutable (changeable) collection of items. Lists can contain items of different data types and are defined with square brackets `[]`. You can add items with `.append()`, remove them with `.remove()`, and access them by index.",
+                exampleCode: `fruits = ["apple", "banana", "cherry"]
+
+# Add an item to the end
+fruits.append("orange")
+
+# Access the first item
+print(f"First fruit: {fruits[0]}") # apple
+
+# The list has been modified
+print(f"Updated list: {fruits}")`,
+                learnMoreLink: "https://docs.python.org/3/tutorial/datastructures.html"
+            },
+            {
+                id: 'tuples',
+                title: 'Data Structures: Tuples',
+                explanation: "A tuple is an ordered and immutable (unchangeable) collection of items. They are defined with parentheses `()`. Because they are immutable, they are often used for data that should not be modified, like coordinates or database records.",
+                exampleCode: `point = (10, 20, 30)
+
+# Accessing elements is the same as lists
+x = point[0]
+print(f"The x-coordinate is {x}")
+
+# Trying to change an element will cause an error
+# point[0] = 15 # This line would raise a TypeError`,
+                learnMoreLink: "https://www.w3schools.com/python/python_tuples.asp"
+            },
+            {
+                id: 'dictionaries',
+                title: 'Data Structures: Dictionaries',
+                explanation: "A dictionary is an unordered collection of key-value pairs. Each key must be unique and is used to access its corresponding value. Dictionaries are defined with curly braces `{}` and are extremely useful for storing structured data.",
+                exampleCode: `person = {
+    "name": "Alice",
+    "age": 30,
+    "city": "New York"
+}
+
+# Access a value by its key
+print(f"{person['name']} is {person['age']} years old.")
+
+# Add a new key-value pair
+person["occupation"] = "Engineer"
+print(person)`,
+                learnMoreLink: "https://realpython.com/python-dicts/"
+            }
+        ];
+
+        const navigation = document.getElementById('navigation');
+        const mainContent = document.getElementById('main-content');
+
+        function renderContent() {
+            let navHTML = '<ul class="space-y-2">';
+            let contentHTML = '';
+
+            pythonConcepts.forEach((concept, index) => {
+                navHTML += `
+                    <li>
+                        <a href="#" data-target="${concept.id}" class="nav-link block p-3 rounded-lg hover:bg-green-200 transition-colors duration-200 ${index === 0 ? 'active' : ''}">
+                            ${concept.title}
+                        </a>
+                    </li>
+                `;
+                contentHTML += `
+                    <div id="${concept.id}" class="content-section space-y-8 ${index === 0 ? 'active' : ''}">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                            <h2 class="text-2xl font-bold text-green-700 mb-3">Explanation</h2>
+                            <p class="text-gray-700 leading-relaxed">${concept.explanation.replace(/`([^`]+)`/g, '<code class="bg-gray-200 text-gray-800 font-mono py-0.5 px-1.5 rounded-md text-sm">$&</code>').replace(/`/g, '')}</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                            <h3 class="text-xl font-semibold text-green-700 mb-3">Code Example</h3>
+                            <div class="code-block"><pre><code>${concept.exampleCode}</code></pre></div>
+                        </div>
+                         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                            <a href="${concept.learnMoreLink}" target="_blank" rel="noopener noreferrer" class="font-semibold text-green-600 hover:text-green-800 transition-colors duration-200">
+                                Learn More About ${concept.title} &rarr;
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+
+            navHTML += '</ul>';
+            navigation.innerHTML = navHTML;
+            mainContent.innerHTML = contentHTML;
+        }
+
+        function handleNavClick(event) {
+            event.preventDefault();
+            const link = event.target.closest('.nav-link');
+            if (!link) return;
+
+            const targetId = link.dataset.target;
+            
+            // Update active link
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+
+            // Update active content
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+                if (section.id === targetId) {
+                    section.classList.add('active');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderContent();
+            navigation.addEventListener('click', handleNavClick);
+        });
+    </script>
+</body>
+</html>
+
